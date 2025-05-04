@@ -43,19 +43,7 @@ export default function ClubProfileSection({
   setClubProfile,
   onNext,
 }: ClubProfileSectionProps) {
-  const handleFocusAreaToggle = (area: string) => {
-    if (clubProfile.focusAreas.includes(area)) {
-      setClubProfile({
-        ...clubProfile,
-        focusAreas: clubProfile.focusAreas.filter((item) => item !== area),
-      });
-    } else {
-      setClubProfile({
-        ...clubProfile,
-        focusAreas: [...clubProfile.focusAreas, area],
-      });
-    }
-  };
+  
 
   const handleSelectTemplate = (template: ClubProfile) => {
     setClubProfile(template);
@@ -91,7 +79,6 @@ export default function ClubProfileSection({
                   className="flex flex-col items-start py-2"
                 >
                   <span className="font-medium">{template.name}</span>
-                  <span className="text-xs text-muted-foreground capitalize">{template.type}</span>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -109,84 +96,17 @@ export default function ClubProfileSection({
             />
           </motion.div>
 
-          <motion.div className="space-y-2" {...staggerAnimationProps}>
-            <Label htmlFor="type">Club Type</Label>
-            <Select
-              value={clubProfile.type}
-              onValueChange={(value) => setClubProfile({ ...clubProfile, type: value })}
-            >
-              <SelectTrigger className="transition-all focus:ring-2 focus:ring-primary">
-                <SelectValue placeholder="Select club type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="university">University</SelectItem>
-                <SelectItem value="high-school">High School</SelectItem>
-                <SelectItem value="professional">Professional</SelectItem>
-                <SelectItem value="community">Community</SelectItem>
-                <SelectItem value="research">Research</SelectItem>
-                <SelectItem value="nonprofit">Nonprofit</SelectItem>
-                <SelectItem value="sports">Sports</SelectItem>
-                <SelectItem value="hobby">Hobby</SelectItem>
-              </SelectContent>
-            </Select>
-          </motion.div>
-
+          
           <motion.div className="space-y-2" {...staggerAnimationProps}>
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
-              value={clubProfile.description}
-              onChange={(e) => setClubProfile({ ...clubProfile, description: e.target.value })}
+              value={clubProfile.mission}
+              onChange={(e) => setClubProfile({ ...clubProfile, mission: e.target.value })}
               placeholder="Brief description of your club and its mission"
               rows={3}
               className="transition-all focus:ring-2 focus:ring-primary"
             />
-          </motion.div>
-
-          <motion.div className="space-y-2" {...staggerAnimationProps}>
-            <Label>Focus Areas</Label>
-            <div className="grid grid-cols-2 gap-2">
-              {FOCUS_AREAS.map((area) => (
-                <motion.div
-                  key={area}
-                  className="flex items-center space-x-2 rounded-md p-2 hover:bg-accent transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Checkbox
-                    id={`focus-${area}`}
-                    checked={clubProfile.focusAreas.includes(area)}
-                    onCheckedChange={() => handleFocusAreaToggle(area)}
-                    className="transition-all data-[state=checked]:animate-pulse"
-                  />
-                  <Label htmlFor={`focus-${area}`} className="cursor-pointer">
-                    {area}
-                  </Label>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="space-y-2" {...staggerAnimationProps}>
-            <Label htmlFor="tone">Communication Tone</Label>
-            <Select
-              value={clubProfile.tone}
-              onValueChange={(value) => setClubProfile({ ...clubProfile, tone: value })}
-            >
-              <SelectTrigger className="transition-all focus:ring-2 focus:ring-primary">
-                <SelectValue placeholder="Select tone" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="professional">Professional</SelectItem>
-                <SelectItem value="casual">Casual</SelectItem>
-                <SelectItem value="academic">Academic</SelectItem>
-                <SelectItem value="enthusiastic">Enthusiastic</SelectItem>
-                <SelectItem value="informative">Informative</SelectItem>
-                <SelectItem value="creative">Creative</SelectItem>
-                <SelectItem value="friendly">Friendly</SelectItem>
-                <SelectItem value="motivational">Motivational</SelectItem>
-              </SelectContent>
-            </Select>
           </motion.div>
         </CardContent>
         <CardFooter className="justify-between">
