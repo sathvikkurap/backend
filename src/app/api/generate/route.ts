@@ -54,7 +54,7 @@ function createPrompt(clubInfo: any, outputType: 'pdf' | 'social' = 'pdf'): stri
   
   <<< Club Information >>>
   - Name: ${clubInfo.name}
-  - Mission: ${clubInfo.mission}
+  - Mission: ${clubInfo.description}
   - Founded: ${clubInfo.foundingDate}
   - Current Members: ${clubInfo.currentMemberCount}
   - Meeting Frequency: ${clubInfo.meetingFrequency}
@@ -149,7 +149,7 @@ function createPrompt(clubInfo: any, outputType: 'pdf' | 'social' = 'pdf'): stri
   
   <<< Club Information >>>
   - Name: ${clubInfo.name}
-  - Mission: ${clubInfo.mission}
+  - Mission: ${clubInfo.description}
   - Founded: ${clubInfo.foundingDate}
   - Current Members: ${clubInfo.currentMemberCount}
   - Meeting Frequency: ${clubInfo.meetingFrequency}
@@ -210,7 +210,7 @@ function createPrompt(clubInfo: any, outputType: 'pdf' | 'social' = 'pdf'): stri
         absjd
       </div>
       <h1 class="text-5xl font-extrabold text-pink-700 mb-2 text-center">${clubInfo.name}</h1>
-      <p class="text-2xl text-blue-700 mb-4 text-center">${clubInfo.mission}</p>
+      <p class="text-2xl text-blue-700 mb-4 text-center">${clubInfo.description}</p>
       ${clubInfo.upcomingEvents ? `<div class="bg-yellow-200 rounded-xl px-6 py-2 mb-4 text-lg font-semibold text-yellow-900 shadow">Next: ${clubInfo.upcomingEvents.split(',')[0]}</div>` : ''}
       ${clubInfo.benefits ? `<div class="flex flex-wrap gap-2 justify-center mb-4">${clubInfo.benefits.split(',').slice(0,2).map((b: string) => `<span class="bg-pink-200 rounded-full px-4 py-1 text-pink-800 text-base font-medium">${b.trim()}</span>`).join('')}</div>` : ''}
       ${clubInfo.achievements ? `<div class="text-lg text-purple-700 mb-4">🏆 ${clubInfo.achievements.split(',')[0]}</div>` : ''}
