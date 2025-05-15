@@ -37,16 +37,31 @@ export async function POST(request: Request) {
     return await generateOutput(generatedContent, outputType);
     
   } catch (error) {
+  // Narrow error type to access its properties safely
+  if (error instanceof Error) {
     console.error(
-        'Generation error:', error.message,
-        '\nStack trace:', error.stack,
-        '\nTimestamp:', new Date().toISOString()
+      'Generation error:', error.message,
+      '\nStack trace:', error.stack,
+      '\nTimestamp:', new Date().toISOString()
     );
     return NextResponse.json(
-        { error: 'Failed to generate document', details: error.message },
-        { status: 500 }
+      { error: 'Failed to generate document', details: error.message },
+      { status: 500 }
     );
+  } else {
+    // Handle non-Error exceptions (rare, but possible)
+    console.error(
+      'Generation error: Unknown error type',
+      '\nError:', error,
+      '\nTimestamp:', new Date().toISOString()
+    );
+    return NextResponse.json(
+      { error: 'Failed to generate document', details: String(error) },
+      { status: 500 }
+    );
+  }
 }
+
 }
 
 function createPrompt(clubInfo: any, outputType: 'pdf' | 'social' = 'pdf'): string {
