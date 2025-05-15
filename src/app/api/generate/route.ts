@@ -37,12 +37,16 @@ export async function POST(request: Request) {
     return await generateOutput(generatedContent, outputType);
     
   } catch (error) {
-    console.error('Generation error:', error);
-    return NextResponse.json(
-      { error: 'Failed to generate document' },
-      { status: 500 }
+    console.error(
+        'Generation error:', error.message,
+        '\nStack trace:', error.stack,
+        '\nTimestamp:', new Date().toISOString()
     );
-  }
+    return NextResponse.json(
+        { error: 'Failed to generate document', details: error.message },
+        { status: 500 }
+    );
+}
 }
 
 function createPrompt(clubInfo: any, outputType: 'pdf' | 'social' = 'pdf'): string {
